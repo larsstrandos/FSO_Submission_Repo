@@ -1,17 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Numbers from './components/Numbers'
 import PersonForm from './components/PersonForm'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
-  const [ filtered, setFiltered] = useState(persons)
+  const [ persons, setPersons ] = useState([])
+  const [ filtered, setFiltered] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
+
+  useEffect(() => {
+    const getData = () => {
+      fetch('http://127.0.0.1:3001/persons', {
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      }).then((response) => {
+        return response.json()
+      }).then((myJson) => {
+        setPersons(myJson)
+        setFiltered(myJson)
+      })
+    }
+
+    getData()
+  }, [])
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -40,7 +53,7 @@ const App = () => {
 
   const handlePersonFilter = (event) => {
     const people = [...persons]
-    const filter =  people.filter(x => String(x.name.toLowerCase()).startsWith(String(event.target.value.toLowerCase())))
+    const filter =  people.filter(x => String(x.name.toLowerCase()).includes(String(event.target.value.toLowerCase())))
     setFiltered(filter)
   }
 
