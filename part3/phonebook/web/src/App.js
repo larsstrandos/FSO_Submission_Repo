@@ -9,7 +9,7 @@ const App = () => {
   const [ filtered, setFiltered] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
-  const [errorMessage, setErrorMessage] = useState({
+  const [ errorMessage, setErrorMessage ] = useState({
     errif: false,
     errTyp: 'error',
     errMsg: null
@@ -33,8 +33,8 @@ const App = () => {
   const submitPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      name: newName,
-      number: newNumber
+      name: newName.trim(),
+      number: newNumber.trim()
     }
     if (personObject.name && personObject.number) {
       const person = persons.find(x => x.name === personObject.name)
