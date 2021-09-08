@@ -1,5 +1,3 @@
-import { set } from "mongoose";
-
 const baseUrl = "http://localhost:3001/api/persons";
 
 export const getAll = async () => {

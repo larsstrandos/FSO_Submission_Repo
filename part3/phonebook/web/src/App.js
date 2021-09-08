@@ -48,16 +48,19 @@ const App = () => {
           ...personObject,
           id: persons.find((x) => x.name === personObject.name).id,
         };
-        contactServices.updatePerson(updatePersonObject).then((res) => {
-          const newPersonsObject = persons.map((person) =>
-            person.id === res.id ? res : person
-          );
-          setFiltered(newPersonsObject);
-          setPersons(newPersonsObject);
-          setNewName("");
-          setNewNumber("");
-          showNotification(`Updated ${res.name} number`, "success");
-        });
+        contactServices
+          .updatePerson(updatePersonObject)
+          .then((res) => {
+            const newPersonsObject = persons.map((person) =>
+              person.id === res.id ? res : person
+            );
+            setFiltered(newPersonsObject);
+            setPersons(newPersonsObject);
+            setNewName("");
+            setNewNumber("");
+            showNotification(`Updated ${res.name} number`, "success");
+          })
+          .catch((err) => console.log(err));
         return;
       } else if (!person) {
         contactServices
@@ -68,8 +71,9 @@ const App = () => {
             setNewName("");
             setNewNumber("");
             showNotification(`Added ${res.name}`, "success");
+            console.log(res);
           })
-          .catch((err) => console.log(err));
+          .catch((error) => showNotification(error.response.data, "error"));
 
         return;
       }
