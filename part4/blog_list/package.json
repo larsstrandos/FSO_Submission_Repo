@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -13,6 +14,15 @@
   },
   "scripts": {
     "start": "node ./index",
-    "dev": "nodemon ./index"
+    "dev": "nodemon ./index",
+    "lint": "eslint .",
+    "test": "jest --verbose"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "jest": "^27.1.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
