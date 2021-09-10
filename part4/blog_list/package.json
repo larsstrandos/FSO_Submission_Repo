@@ -13,12 +13,13 @@
     "nodemon": "^2.0.12"
   },
   "scripts": {
-    "start": "node ./index",
-    "dev": "nodemon ./index",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "jest": "^27.1.1"
   },
